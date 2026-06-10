@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al-Mirqat — Technical Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:       #1a1410;
+    --ink-soft:  #3d3020;
+    --margin:    #7a6245;
+    --rule:      #c9b48a;
+    --rule-light:#e8dcc8;
+    --page:      #faf7f2;
+    --cream:     #f2edd6;
+    --accent:    #8b2020;
+    --accent2:   #1a4a6b;
+    --highlight: #fffbe6;
+    --arabic-bg: #f5f0e3;
+    --tag-bg:    #e8dcc8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--page);
+  }
+
+  /* ── SIDEBAR ── */
+  #sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--ink);
+    color: var(--cream);
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+  #sidebar-header {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid #3a2e20;
+  }
+  #sidebar-header .title-ar {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 22px;
+    color: #d4b483;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+  #sidebar-header .title-en {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7a6a50;
+  }
+  #sidebar nav { padding: 16px 0 24px; flex: 1; }
+  #sidebar nav a {
+    display: block;
+    padding: 7px 20px;
+    font-size: 12.5px;
+    color: #a89070;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    transition: color 0.15s, background 0.15s;
+    border-left: 3px solid transparent;
+  }
+  #sidebar nav a:hover,
+  #sidebar nav a.active {
+    color: #d4b483;
+    background: rgba(255,255,255,0.04);
+    border-left-color: #8b2020;
+  }
+  #sidebar nav .nav-section {
+    padding: 14px 20px 4px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8a765d;
+  }
+
+  /* ── MAIN ── */
+  #main {
+    margin-left: 260px;
+    padding: 0;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 72px 64px 56px;
+    border-bottom: 4px solid var(--accent);
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: 'المنطق';
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 220px;
+    color: rgba(255,255,255,0.025);
+    position: absolute;
+    top: -30px; right: -10px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  #hero .kicker {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8b2020;
+    margin-bottom: 16px;
+  }
+  #hero h1 {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    color: #f0e8d4;
+  }
+  #hero .subtitle {
+    font-size: 15px;
+    color: #7a6a50;
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+  #hero .meta-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  #hero .meta-item { font-size: 13px; color: #6a5a40; }
+  #hero .meta-item strong { color: #a89070; }
+
+  /* ── CONTENT SECTIONS ── */
+  .section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 64px;
+    border-bottom: 1px solid var(--rule-light);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 36px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--rule);
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .section-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .section-title-ar {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 20px;
+    color: var(--margin);
+    margin-left: auto;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 36px 0 12px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent2);
+    margin: 28px 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  p { margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* Arabic inline */
+  .ar {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 1.15em;
+    color: var(--margin);
+    direction: rtl;
+    display: inline;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+  /* Arabic block quotation (matn) */
+  .matn {
+    background: var(--arabic-bg);
+    border-right: 4px solid var(--accent);
+    border-radius: 3px;
+    padding: 14px 20px 16px;
+    margin: 20px 0;
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 1.3em;
+    direction: rtl;
+    text-align: right;
+    color: var(--ink-soft);
+    line-height: 1.9;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .matn .matn-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    direction: ltr;
+    align-self: flex-start;
+  }
+
+  /* Tables */
+  .tbl-wrap { overflow-x: auto; margin: 24px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  thead th {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+  tbody tr:nth-child(even) { background: var(--cream); }
+  tbody tr:nth-child(odd)  { background: var(--page); }
+  tbody td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--rule-light);
+    vertical-align: top;
+  }
+  tbody td .ar { font-size: 1.2em; }
+
+  /* Definition boxes */
+  .def-box {
+    background: var(--highlight);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent2);
+    border-radius: 3px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .def-box .def-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 6px;
+  }
+  .def-box .def-text {
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* Warning / note box */
+  .note-box {
+    background: #f0f5ff;
+    border-left: 4px solid var(--accent2);
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+    border-radius: 0 3px 3px 0;
+  }
+  .debate-box {
+    background: #fff5f5;
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+    border-radius: 0 3px 3px 0;
+  }
+  .debate-box::before {
+    content: 'SCHOOL DEBATE';
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  /* Logic square */
+  .logic-square {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 0;
+    margin: 28px auto;
+    max-width: 500px;
+    font-size: 13.5px;
+  }
+  .ls-cell {
+    border: 1px solid var(--rule);
+    padding: 14px 16px;
+    background: var(--cream);
+    line-height: 1.5;
+  }
+  .ls-cell.a { background: #e8f5e9; border-color: #4caf50; }
+  .ls-cell.e { background: #fce4ec; border-color: #e91e63; }
+  .ls-cell.i { background: #e3f2fd; border-color: #2196f3; }
+  .ls-cell.o { background: #fff8e1; border-color: #ff9800; }
+  .ls-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .ls-relations {
+    grid-column: 1 / -1;
+    background: var(--arabic-bg);
+    border: 1px solid var(--rule);
+    padding: 16px;
+    font-size: 13px;
+  }
+  .ls-arrow-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 6px 0;
+    padding: 6px 12px;
+    background: var(--page);
+    border: 1px solid var(--rule-light);
+    border-radius: 2px;
+  }
+
+  /* Syllogism figure boxes */
+  .figure-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .figure-box {
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent2);
+    padding: 16px;
+    background: var(--cream);
+    font-size: 13.5px;
+  }
+  .figure-box h4 {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 12px;
+  }
+  .syllogism {
+    background: var(--page);
+    border: 1px solid var(--rule-light);
+    padding: 12px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    margin-top: 8px;
+    border-left: 3px solid var(--rule);
+    line-height: 1.8;
+  }
+  .syllogism .conclusion {
+    border-top: 1px solid var(--rule);
+    margin-top: 6px;
+    padding-top: 6px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* Glossary */
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .glossary-item {
+    border: 1px solid var(--rule-light);
+    padding: 12px 16px;
+    background: var(--cream);
+    border-radius: 2px;
+  }
+  .glossary-item .g-ar {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 1.3em;
+    direction: rtl;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .glossary-item .g-en {
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .glossary-item .g-def {
+    font-size: 12px;
+    color: var(--margin);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  /* Tag */
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--ink-soft);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    margin: 0 2px;
+  }
+
+  /* Study plan */
+  .study-plan {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .study-day {
+    border: 1px solid var(--rule-light);
+    padding: 10px 12px;
+    font-size: 12px;
+    background: var(--cream);
+    border-top: 3px solid var(--rule);
+  }
+  .study-day.review { border-top-color: var(--accent); }
+  .study-day .day-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--margin);
+    letter-spacing: 0.1em;
+  }
+  .study-day .day-topic {
+    margin-top: 4px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+
+  /* Footer */
+  #footer {
+    background: var(--ink);
+    color: #8a765d;
+    text-align: center;
+    padding: 32px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    margin-left: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    #sidebar { width: 220px; }
+    #main { margin-left: 220px; }
+    .section { padding: 40px 32px; }
+    #hero { padding: 48px 32px 40px; }
+    .glossary-grid { grid-template-columns: 1fr; }
+    .figure-grid { grid-template-columns: 1fr; }
+    .study-plan { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 640px) {
+    #sidebar { display: none; }
+    #main { margin-left: 0; }
+    #hero { padding: 36px 24px 32px; }
+    #hero h1 { font-size: 36px; }
+    .section { padding: 32px 20px; }
+    .section-title-ar { display: none; }
+  }
+
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position: fixed; top: 0; left: 0;
+    height: 3px; background: var(--accent);
+    width: 0%; z-index: 200;
+    transition: width 0.1s linear;
+  }
+
+  /* ── SEARCH ── */
+  #search-wrap { padding: 12px 16px; border-bottom: 1px solid #3a2e20; }
+  #search-input {
+    width: 100%; background: rgba(255,255,255,0.07);
+    border: 1px solid #3a2e20; border-radius: 4px;
+    color: #d4b483; padding: 7px 10px;
+    font-size: 12.5px; font-family: 'Source Serif 4', serif;
+    outline: none; transition: border-color 0.15s;
+  }
+  #search-input::placeholder { color: #4a3e2c; }
+  #search-input:focus { border-color: #7a6245; }
+  .search-highlight { background: #ffe082; border-radius: 2px; }
+
+  /* ── COLLAPSIBLE SECTIONS ── */
+  .section-toggle {
+    background: none; border: none; cursor: pointer;
+    color: var(--margin); font-size: 14px;
+    padding: 0 0 0 8px; line-height: 1;
+    opacity: 0.6; transition: opacity 0.15s, transform 0.2s;
+    flex-shrink: 0;
+  }
+  .section-toggle:hover { opacity: 1; }
+  .section-toggle.collapsed { transform: rotate(-90deg); }
+  .section-body.hidden { display: none; }
+
+  /* ── COMPLETION CHECKBOXES ── */
+  .section-check {
+    appearance: none; -webkit-appearance: none;
+    width: 15px; height: 15px;
+    border: 1.5px solid #3a2e20; border-radius: 3px;
+    cursor: pointer; flex-shrink: 0;
+    margin-right: 6px; position: relative;
+    background: transparent;
+    transition: background 0.15s, border-color 0.15s;
+    vertical-align: middle;
+  }
+  .section-check:checked { background: var(--accent); border-color: var(--accent); }
+  .section-check:checked::after {
+    content: '✓'; position: absolute;
+    top: -2px; left: 1px; font-size: 11px; color: white;
+  }
+  #sidebar nav a { display: flex; align-items: center; }
+  #sidebar nav a .nav-label { flex: 1; }
+
+  /* ── PROGRESS TRACKER ── */
+  #progress-tracker {
+    padding: 12px 16px 16px;
+    border-top: 1px solid #3a2e20;
+    margin-top: auto;
+  }
+  #progress-tracker .prog-label {
+    font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #8a765d; margin-bottom: 6px;
+  }
+  #prog-bar-inner { height: 4px; background: #3a2e20; border-radius: 2px; overflow: hidden; }
+  #prog-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s ease; border-radius: 2px; }
+  #prog-count { font-size: 11px; color: #7a6a50; margin-top: 5px; }
+
+  /* ── BACK TO TOP ── */
+  #back-top {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--ink); color: var(--cream);
+    border: none; width: 38px; height: 38px;
+    border-radius: 50%; cursor: pointer; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    opacity: 0; transition: opacity 0.2s; z-index: 150;
+  }
+  #back-top.visible { opacity: 1; }
+
+  /* ── MOBILE HAMBURGER ── */
+  #menu-toggle {
+    display: none; position: fixed;
+    top: 12px; left: 12px; z-index: 300;
+    background: var(--ink); border: none; color: var(--cream);
+    width: 36px; height: 36px; border-radius: 4px;
+    cursor: pointer; font-size: 18px;
+    align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  @media (max-width: 640px) {
+    #menu-toggle { display: flex; }
+    #sidebar { transform: translateX(-100%); transition: transform 0.25s ease; }
+    #sidebar.open { transform: translateX(0); }
+  }
+
+  /* ── EXAM TIPS ── */
+  .exam-tip {
+    background: #fff8e1; border: 1px solid #ffe082;
+    border-left: 4px solid #f9a825;
+    padding: 12px 16px; margin: 18px 0;
+    font-size: 13.5px; border-radius: 0 3px 3px 0;
+  }
+  .exam-tip::before {
+    content: '✎ EXAM TIP'; display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.16em;
+    color: #f9a825; margin-bottom: 5px;
+  }
+
+  /* ── SECTION HEADER ALIGNMENT ── */
+  .section-header { align-items: center; }
+
+  /* ── PRINT ── */
+  @media print {
+    #progress-bar, #search-wrap, .section-toggle, .section-check,
+    #progress-tracker, #back-top, #menu-toggle { display: none !important; }
+    .section-body.hidden { display: block !important; }
+  }
+
+  /* Print */
+  @media print {
+    #sidebar { display: none; }
+    #main { margin-left: 0; }
+    .section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<button id="menu-toggle" aria-label="Open navigation">☰</button>
+<button id="back-top" title="Back to top">↑</button>
+
+<!-- ════════════════════════════════════════════════ SIDEBAR -->
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <div class="title-ar">المرقات</div>
+    <div class="title-en">Technical Study Guide · ʻIlm al-Mantiq</div>
+  </div>
+  <div id="search-wrap"><input id="search-input" type="search" placeholder="Search terms…" autocomplete="off"></div>
+  <nav>
+    <span class="nav-section">Introduction</span>
+    <a href="#hero"><span class="nav-label">Overview</span></a>
+    <span class="nav-section">Core Sections</span>
+    <a href="#s1"><input type="checkbox" class="section-check" data-section="s1" title="Mark as studied"><span class="nav-label">§1 Epistemology of Logic</span></a>
+    <a href="#s2"><input type="checkbox" class="section-check" data-section="s2" title="Mark as studied"><span class="nav-label">§2 Indication (الدلالة)</span></a>
+    <a href="#s3"><input type="checkbox" class="section-check" data-section="s3" title="Mark as studied"><span class="nav-label">§3 Simple &amp; Compound Words</span></a>
+    <a href="#s4"><input type="checkbox" class="section-check" data-section="s4" title="Mark as studied"><span class="nav-label">§4 Complete &amp; Incomplete Compounds</span></a>
+    <a href="#s5"><input type="checkbox" class="section-check" data-section="s5" title="Mark as studied"><span class="nav-label">§5 Five Universals</span></a>
+    <a href="#s6"><input type="checkbox" class="section-check" data-section="s6" title="Mark as studied"><span class="nav-label">§6 Definitions</span></a>
+    <a href="#s7"><input type="checkbox" class="section-check" data-section="s7" title="Mark as studied"><span class="nav-label">§7 Propositions (القضايا)</span></a>
+    <a href="#s7b"><input type="checkbox" class="section-check" data-section="s7b" title="Mark as studied"><span class="nav-label">§7b Hypothetical Propositions</span></a>
+    <a href="#s7c"><input type="checkbox" class="section-check" data-section="s7c" title="Mark as studied"><span class="nav-label">§7c Immediate Inference</span></a>
+    <a href="#s8"><input type="checkbox" class="section-check" data-section="s8" title="Mark as studied"><span class="nav-label">§8 Syllogism (القياس)</span></a>
+    <a href="#s9"><input type="checkbox" class="section-check" data-section="s9" title="Mark as studied"><span class="nav-label">§9 Fallacies (الأغاليط)</span></a>
+    <a href="#s10"><input type="checkbox" class="section-check" data-section="s10" title="Mark as studied"><span class="nav-label">§10 Three Matters of Science</span></a>
+    <a href="#s11"><input type="checkbox" class="section-check" data-section="s11" title="Mark as studied"><span class="nav-label">§11 Eight Prefaces</span></a>
+    <span class="nav-section">Additional</span>
+    <a href="#s12"><input type="checkbox" class="section-check" data-section="s12" title="Mark as studied"><span class="nav-label">§12 The Five Arts</span></a>
+    <a href="#glossary"><span class="nav-label">Glossary</span></a>
+    <span class="nav-section">Study Tools</span>
+    <a href="#study-plan"><input type="checkbox" class="section-check" data-section="study-plan" title="Mark as studied"><span class="nav-label">30-Day Plan</span></a>
+  </nav>
+  <div id="progress-tracker">
+    <div class="prog-label">Sections studied</div>
+    <div id="prog-bar-inner"><div id="prog-fill"></div></div>
+    <div id="prog-count">0 / 12 complete</div>
+  </div>
+</aside>
+
+<!-- ════════════════════════════════════════════════ MAIN -->
+<div id="main">
+
+<!-- HERO -->
+<header id="hero">
+  <div class="kicker">Advanced Verbal Examination Preparation</div>
+  <h1>المرقات</h1>
+  <div class="subtitle">Al-Mirqāt — Technical Study Guide for ʻIlm al-Manṭiq</div>
+  <div class="meta-row">
+    <div class="meta-item"><strong>Author:</strong> Mawlānā Faḍl Imām al-Khayrābādī</div>
+    <div class="meta-item"><strong>Commentary:</strong> Muḥammad Ilyās al-Gujarātī (<em>Taqwiyat al-Mirqāt</em>)</div>
+    <div class="meta-item"><strong>Level:</strong> Advanced (rigorous verbal examination)</div>
+    <div class="meta-item"><strong>Sections:</strong> 12 topics + glossary</div>
+  </div>
+</header>
+
+<!-- ════ SECTION 1 ════ -->
+<section class="section" id="s1">
+<div class="section-header">
+    <span class="section-num">§ 01</span>
+    <h2 class="section-title">Epistemology of Logic</h2>
+    <span class="section-title-ar">مباحث العلم</span>
+  
+    <button class="section-toggle" data-target="s1-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s1-body">
+
+  <div class="exam-tip">Be ready to state the <strong>Māturīdī definition</strong> verbatim (الحالة الانجلائية) and explain why it preserves God's knowledge as eternal (قديم).</div>
+  <h2>The Five Senses of "ʻIlm" (العلم)</h2>
+  <div class="matn"><span class="matn-label">Matn</span>العلم يطلق على خمسة معان</div>
+
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>Meaning</th><th>Arabic</th><th>School</th><th>Key Term</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Attainment of the thing's form in the intellect</td><td class="ar">حصول صورة الشيء في العقل</td><td>Peripatetics (مشائيون)</td><td class="tag">الحصول</td></tr>
+      <tr><td>2</td><td>The form as it exists in the intellect</td><td class="ar">الصورة الحاصلة من الشيء عند العقل</td><td>Peripatetics (variant)</td><td>—</td></tr>
+      <tr><td>3</td><td>Presence (حضور) to the perceiver</td><td class="ar">الحاضر عند المدرك</td><td>Ishraqi — Suhrawardi</td><td class="tag">علم حضوري</td></tr>
+      <tr><td>4</td><td>Soul's reception of the form</td><td class="ar">قبول النفس لتلك الصورة</td><td>Some mutakallimun</td><td class="tag">قبول</td></tr>
+      <tr><td>5</td><td>The relation between knower and known</td><td class="ar">الإضافة الحاصلة بين العالم والمعلوم</td><td>Māturīdī mutakallimun</td><td class="tag">حالة انجلائية</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="debate-box">
+    <strong>Māturīdī position (detailed):</strong> Knowledge is a simple attribute with relation (<span class="ar">صفة بسيطة ذات إضافة</span>), called the <em>manifestational state</em> (<span class="ar">الحالة الانجلائية</span>). The knower is described by it as by other attributes. It does <em>not</em> arise upon connection to the known — thereby preserving God's knowledge as eternal (قديم) without requiring objects of knowledge to be co-eternal.
+    <br><br>
+    <strong>Al-Ghazālī / al-Rāzī critique:</strong> <em>Ḥuṣūl</em> (attainment) is an abstracted secondary concept (<span class="ar">انتزاعي</span>), not the essence of knowledge itself.
+    <br><br>
+    <strong>Muḥammad Ilyās (الحق):</strong> Knowledge is an epistemological state (<span class="ar">حالة إدراكية</span>) reconciling both presence and correspondence.
+  </div>
+
+  <h2>Division of Knowledge: بديهي and كسبي</h2>
+  <p>The division into <strong>تصور / تصديق</strong> applies <em>only</em> to <span class="ar">العلم الحادث الحصولي</span> (acquired, attained knowledge of created beings). This is the position of the majority of <span class="ar">محققون</span>.</p>
+  <div class="note-box"><strong>Imam al-Rāzī's minority position:</strong> All <em>taṣawwurāt</em> are <em>badīhī</em>. Therefore only <em>taṣdīqāt</em> divide into <em>badīhī</em> and <em>naẓarī</em>.</div>
+
+  <h2>The Definition of Thinking (فكر / نظر)</h2>
+  <div class="matn"><span class="matn-label">Matn</span>النظر: ترتيب أمور معلومة للتأدي إلى المجهول</div>
+
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Scenario</th><th>First Movement (مطلوب→مبادي)</th><th>Second Movement (مبادي→مطلوب)</th><th>Naẓarī (Ancients)</th><th>Naẓarī (Later)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Instant (دفعي)</td><td>Gradual (تدريجي)</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>2</td><td>Gradual</td><td>Instant</td><td>No</td><td>No</td></tr>
+      <tr><td>3</td><td>Instant</td><td>Instant</td><td>No</td><td>No</td></tr>
+      <tr><td>4</td><td>Gradual</td><td>Gradual</td><td>Yes</td><td>Yes</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Correct view (الحق):</strong> Thinking = any movement in concepts to attain the unknown. If <em>any</em> movement exists → naẓarī. If no movement at all → badīhī.</p>
+
+  <h2>The Four Causes Applied to Logic</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Cause</th><th>Arabic</th><th>Applied to Logic</th></tr></thead>
+    <tbody>
+      <tr><td>Material</td><td class="ar">مادية</td><td>The propositions (تصورات & تصديقات) with their matter and form</td></tr>
+      <tr><td>Formal</td><td class="ar">صورية</td><td>The structure of leading from premises to conclusion (هيئة الإيصال)</td></tr>
+      <tr><td>Efficient</td><td class="ar">فاعلية</td><td><em>Apparent:</em> Aristotle; <em>Intermediate:</em> first sage; <em>True verification:</em> Allāh</td></tr>
+      <tr><td>Final</td><td class="ar">غائية</td><td>Protection of the thinking faculty from error (عصمة القوة المفكرة عن الخطأ)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>The Six Self-Evident Truths (البديهيات الستة)</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>Type</th><th>Arabic</th><th>Definition</th><th>Originating Faculty</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Primaries</td><td class="ar">أوليات</td><td>Intellect judges upon mere conception of terms; no mediation needed</td><td>Pure intellect (عقل محض)</td><td class="ar">الكل أعظم من الجزء</td></tr>
+      <tr><td>2</td><td>Innate</td><td class="ar">فطريات</td><td>Needs clear conception of terms, but no further reasoning</td><td>Intellect with hidden middle term (قياس خفي)</td><td class="ar">الأربعة زوج</td></tr>
+      <tr><td>3</td><td>Intuitives</td><td class="ar">حدسيات</td><td>Principles appear at once (دفعة) without gradual reasoning</td><td>Estimative faculty (وهم) + intellect</td><td class="ar">نور القمر مستفاد من نور الشمس</td></tr>
+      <tr><td>4</td><td>Observations</td><td class="ar">مشاهدات</td><td>Judgment via sense perception — external (<span class="ar">حس ظاهر</span>) or internal apperception (<span class="ar">وجدانيات / حس باطن</span>). <em>Exam note: these two sub-types are frequently confused.</em></td><td>External senses (حواس ظاهرة) or internal senses (حواس باطنة)</td><td class="ar">الشمس مشرقة</td></tr>
+      <tr><td>5</td><td>Experientials</td><td class="ar">تجربيات</td><td>Judgment via repeated observation without deliberation</td><td>Repeated sense + hidden syllogism (استقراء)</td><td class="ar">السقمونيا مسهل للصفراء</td></tr>
+      <tr><td>6</td><td>Continuously Reported</td><td class="ar">متواترات</td><td>Report from so many that collusion on falsehood is impossible</td><td>Testimony + rational verification (خبر + عقل)</td><td class="ar">وجود مكة</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note-box"><strong>Five Internal Senses:</strong> Common sense (حس مشترك) · Imagination (خيال) · Estimation (وهم) · Memory (حافظة) · Compositing (متصرفة/مفكرة). The last is called <em>mufakkira</em> when serving the intellect and <em>mutakhayyila</em> when serving the imagination.</div>
+  </div>
+</section>
+
+<!-- ════ SECTION 2 ════ -->
+<section class="section" id="s2">
+<div class="section-header">
+    <span class="section-num">§ 02</span>
+    <h2 class="section-title">Indication</h2>
+    <span class="section-title-ar">الدلالة</span>
+  
+    <button class="section-toggle" data-target="s2-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s2-body">
+  <h2>The Six Types of Indication (الدلالة)</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Signifier</th><th>Cause</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>1. Conventional verbal</td><td>Word</td><td>Convention (وضع)</td><td>"زيد" → Zaid the person</td></tr>
+      <tr><td>2. Natural verbal</td><td>Word/sound</td><td>Nature (طبع)</td><td>"أح أح" → chest pain</td></tr>
+      <tr><td>3. Rational verbal</td><td>Word</td><td>Reason (عقل)</td><td>"ديز" from behind wall → speaker exists</td></tr>
+      <tr><td>4. Conventional non-verbal</td><td>Non-word</td><td>Convention</td><td>Writing, finger-counting, gestures</td></tr>
+      <tr><td>5. Natural non-verbal</td><td>Non-word</td><td>Nature</td><td>Horse's neigh → water</td></tr>
+      <tr><td>6. Rational non-verbal</td><td>Non-word</td><td>Reason</td><td>Smoke (دخان) → fire (نار)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note-box">Logic studies <strong>only Type 1</strong> (conventional verbal indication) because communication and learning occur most easily through it.</div>
+
+  <h2>The Three Divisions of Conventional Verbal Indication</h2>
+  <div class="def-box">
+    <div class="def-label">المطابقة — Correspondence</div>
+    <div class="def-text">The word indicates the complete meaning for which it was placed, from the perspective of its being placed for that meaning. (<span class="ar">من حيث إنه وضع له</span>)</div>
+  </div>
+  <div class="def-box">
+    <div class="def-label">التضمن — Implication</div>
+    <div class="def-text">The word indicates a <em>part</em> of its placed meaning (conceptual, not necessarily physical part).</div>
+  </div>
+  <div class="def-box">
+    <div class="def-label">الالتزام — Necessary Concomitance</div>
+    <div class="def-text">The word indicates a meaning <em>outside</em> the placed meaning that is necessarily connected to it, either rationally (عقلي) or customarily (عرفي).</div>
+  </div>
+
+  <h3>Conditions for الالتزام</h3>
+  <p>The indicated meaning must be: (1) outside the subject matter, (2) necessarily connected, and the necessity may be <em>mental</em> (e.g., البصر for العمى) or <em>customary</em> (e.g., الجود for حاتم).</p>
+
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Term</th><th>Arabic</th><th>Definition</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Bayyin bi-al-maʻnā al-aʻamm</td><td class="ar">بين بالمعنى الأعم</td><td>Conceiving both terms yields certainty of necessity</td><td class="ar">قابل العلم for إنسان</td></tr>
+      <tr><td>Bayyin bi-al-maʻnā al-akhass</td><td class="ar">بين بالمعنى الأخص</td><td>Conceiving the subject forces conceiving the concomitant</td><td class="ar">البصر for العمى</td></tr>
+      <tr><td>Ghayr bayyin</td><td class="ar">غير بين</td><td>Requires proof; rare</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="debate-box">
+    <strong>Al-Rāzī Objection:</strong> Every meaning has the concomitant "ليس غيره" (a thing is not other than itself). If this qualifies as التزام, no مطابقة can exist without التزام — making the rule "مطابقة can exist without التزام" false.
+    <br><br>
+    <strong>Response:</strong> "ليس غيره" is only bayyin bi-al-maʻnā al-aʻamm, not al-akhass. You can conceive a thing without actively conceiving "it is not other than itself."
+    <br><br>
+    <strong>Admission:</strong> The commentator acknowledges inconsistency — logicians use al-aʻamm in their examples (قابل العلم for إنسان) but claim al-akhass in theory. The practically correct position: التزام refers to al-bayyin bi-al-maʻnā al-aʻamm, and "ليس غيره" is excluded only for practical reasons (otherwise every word would have التزام).
+  </div>
+  </div>
+</section>
+
+<!-- ════ SECTION 3 ════ -->
+<section class="section" id="s3">
+<div class="section-header">
+    <span class="section-num">§ 03</span>
+    <h2 class="section-title">Simple and Compound Words</h2>
+    <span class="section-title-ar">المفرد والمركب</span>
+  
+    <button class="section-toggle" data-target="s3-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s3-body">
+<div class="matn"><span class="matn-label">Matn</span>المفرد: ما لا يقصد بجزئه الدلالة على جزء معناه</div>
+
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>Example</th><th>Why it is مفرد</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="ar">همزة الاستفهام</td><td>Has no part at all</td></tr>
+      <tr><td>2</td><td class="ar">لفظ "الله"</td><td>Its meaning is simple — no genus + differentia</td></tr>
+      <tr><td>3</td><td class="ar">"زيد" (as a name)</td><td>Parts (ز،ي،د) don't indicate parts of meaning</td></tr>
+      <tr><td>4</td><td class="ar">"عبد الله" (as a proper name)</td><td>Parts have meaning, but not intended as components of the name</td></tr>
+      <tr><td>5</td><td class="ar">"الحيوان الناطق" (as a person's name)</td><td>Parts indicate meaning but indication is unintentional (sharḥ adds this)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Why "أضرب" is مركب for Logicians</h2>
+  <p>"أضرب" indicates <em>two</em> meanings — the subject/agent (الفاعل) via the initial letter, and the action (الحدث) via the root. Logicians focus on <strong>meaning</strong>, not word form. Grammarians consider it a single verb because they focus on the <strong>word</strong>.</p>
+  <div class="note-box">
+    <strong>The Isnād Principle:</strong> Logicians evaluate whether a <em>proposition</em> (isnād — attribution of one concept to another) is embedded within the cognitive content of a word. In "أضرب," the concealed pronoun <span class="ar">أنتَ</span> (you) forms an immediate subject-predicate relation in the mind: <em>"you — strike."</em> This hidden isnād is what makes it <em>murakkab</em> for logicians even though it appears as a single word-form.
+    <br><br>
+    <strong>Exception:</strong> "يضرب" without a context-specified subject is <em>mufrad</em> for logicians — the subject is entirely open (Allāh, Zaid, or anyone), so no definite attribution is formed in the mind and only one cognitive meaning results.
+  </div>
+
+  <h2>Classification of Simple Words by Meaning</h2>
+  <h3>Single Meaning (واحد المعنى)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Definition</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Particular</td><td class="ar">جزئي</td><td>Its very conception prevents it from applying to many</td><td class="ar">أنا، هذا، زيد، مكة</td></tr>
+      <tr><td>Univocal</td><td class="ar">متواطئ</td><td>Applies equally to all its individuals — no priority, primacy, intensity, or quantity difference</td><td class="ar">الإنسان (Zaid = ʻAmr = Bakr in humanity)</td></tr>
+      <tr><td>Analogical</td><td class="ar">مشكك</td><td>Applies to individuals but not equally — they differ in priority, primacy, intensity, or quantity</td><td class="ar">الوجود، البياض</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note-box"><strong>Why called مشكك?</strong> It causes the observer to doubt (<span class="ar">شك</span>) — is it univocal or homonymous? From commonality it looks univocal; from inequality it looks homonymous.</div>
+
+  <h3>Multiple Meanings (متعدد المعنى)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Definition</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Homonymous</td><td class="ar">مشترك</td><td>Word placed for each meaning independently from the start, by distinct conventions</td><td class="ar">العين (eye, spring, spy, gold)</td></tr>
+      <tr><td>Transferred — customary</td><td class="ar">منقول عرفي</td><td>Moved by general public custom</td><td class="ar">الدابة (any creature → riding animal)</td></tr>
+      <tr><td>Transferred — legal</td><td class="ar">منقول شرعي</td><td>Moved by Islamic law</td><td class="ar">الصلاة (supplication → ritual prayer)</td></tr>
+      <tr><td>Transferred — technical</td><td class="ar">منقول اصطلاحي</td><td>Moved by a specific discipline</td><td class="ar">الاسم (mark → noun, in grammar)</td></tr>
+      <tr><td>Metaphor</td><td class="ar">مجاز</td><td>Meaning used by relation (علاقة) to original, with indicator (قرينة) preventing literal reading</td><td class="ar">زيد أسد (brave like a lion)</td></tr>
+    </tbody>
+  </table></div>
+  </div>
+</section>
+
+<!-- ════ SECTION 4 ════ -->
+<section class="section" id="s4">
+<div class="section-header">
+    <span class="section-num">§ 04</span>
+    <h2 class="section-title">Complete and Incomplete Compounds</h2>
+    <span class="section-title-ar">المركب التام والناقص</span>
+  
+    <button class="section-toggle" data-target="s4-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s4-body">
+التام)</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Definition</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Declarative</td><td class="ar">خبر</td><td>Intended to narrate; admits truth and falsehood</td><td>Even necessarily true propositions (محمد رسول الله) admit <em>potential</em> falsehood by their concept</td></tr>
+      <tr><td>Performative</td><td class="ar">إنشاء</td><td>Not intended to narrate; has no truth value</td><td>Commands, prohibitions, wishes, hopes, questions, calls</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The Six Types of Inshāʼ</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>Type</th><th>Arabic</th><th>Definition</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Command</td><td class="ar">أمر</td><td>Request for action from a position of authority</td><td class="ar">افعل</td></tr>
+      <tr><td>2</td><td>Prohibition</td><td class="ar">نهي</td><td>Request to refrain, from authority</td><td class="ar">لا تفعل</td></tr>
+      <tr><td>3</td><td>Wish</td><td class="ar">تمني</td><td>Desiring occurrence; possibility not required</td><td class="ar">ليت الشباب يعود</td></tr>
+      <tr><td>4</td><td>Hope</td><td class="ar">ترجي</td><td>Desiring occurrence of a <em>possible</em> thing</td><td class="ar">لعل المطر ينزل</td></tr>
+      <tr><td>5</td><td>Question</td><td class="ar">استفهام</td><td>Requesting understanding</td><td class="ar">هل، أين، متى</td></tr>
+      <tr><td>6</td><td>Call</td><td class="ar">نداء</td><td>Requesting attention</td><td class="ar">يا زيد</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Incomplete Compound (المركب الناقص)</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Second word's role</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Possessive</td><td class="ar">مركب إضافي</td><td>مضاف إليه — restricts (قيد) the first</td><td class="ar">غلام زيد</td></tr>
+      <tr><td>Descriptive</td><td class="ar">مركب توصيفي</td><td>صفة/نعت — restricts (قيد) the first</td><td class="ar">الرجل العالم</td></tr>
+      <tr><td>Non-restrictive</td><td class="ar">مركب غير تقييدي</td><td>Constitutive (مقومة للمعنى) — completes, not restricts</td><td class="ar">في الدار</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note-box"><strong>Scribal error note:</strong> Some manuscripts read "مركب تقييدي" for the "في الدار" example. The correct reading is "مركب <em>غير</em> تقييدي" — the word "غير" was dropped by scribes.</div>
+  </div>
+</section>
+
+<!-- ════ SECTION 5 ════ -->
+<section class="section" id="s5">
+<div class="section-header">
+    <span class="section-num">§ 05</span>
+    <h2 class="section-title">The Five Universals</h2>
+    <span class="section-title-ar">الكليات الخمس</span>
+  
+    <button class="section-toggle" data-target="s5-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s5-body">
+
+  <div class="exam-tip">Know all five universals by their <em>technical Arabic definition</em>, not just the English name. The distinction between فصل (ذاتي) and خاصة (عرضي) is frequently tested.</div>
+    <thead><tr><th>Universal</th><th>Arabic</th><th>Technical Definition</th><th>Example</th><th>ذاتي/عرضي</th></tr></thead>
+    <tbody>
+      <tr><td>Genus</td><td class="ar">جنس</td><td>Universal predicated on many differing in essence, answering "What is it?" (ما هو)</td><td class="ar">الحيوان for الإنسان</td><td class="tag">ذاتي</td></tr>
+      <tr><td>Species</td><td class="ar">نوع</td><td>Universal predicated on many agreeing in essence, answering "What is it?"</td><td class="ar">الإنسان</td><td class="tag">ذاتي</td></tr>
+      <tr><td>Differentia</td><td class="ar">فصل</td><td>Universal predicated on a thing answering "Which thing is it in itself?" (أي شيء هو في ذاته)</td><td class="ar">الناطق for الإنسان</td><td class="tag">ذاتي</td></tr>
+      <tr><td>Property</td><td class="ar">خاصة</td><td>Universal outside the essence, predicated on individuals of <em>one</em> essence only</td><td class="ar">الضاحك for الإنسان</td><td class="tag">عرضي</td></tr>
+      <tr><td>Common accident</td><td class="ar">عرض عام</td><td>Universal outside the essence, predicated on individuals of <em>multiple</em> essences</td><td class="ar">الماشي (humans and horses)</td><td class="tag">عرضي</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Division of الجنس</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Definition</th><th>Example for الإنسان</th></tr></thead>
+    <tbody>
+      <tr><td>Proximate genus</td><td class="ar">جنس قريب (سافل)</td><td>Directly above the species</td><td class="ar">الحيوان</td></tr>
+      <tr><td>Remote genus</td><td class="ar">جنس بعيد</td><td>Above the proximate genus</td><td class="ar">الجسم النامي</td></tr>
+      <tr><td>Highest genus</td><td class="ar">جنس عالٍ</td><td>No genus above it (genus of genera)</td><td class="ar">الجوهر</td></tr>
+      <tr><td>Isolated genus</td><td class="ar">جنس فرد</td><td>No genus above AND no species below</td><td class="ar">العقل (on some views)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>The Ten Categories (المقولات العشر)</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>Category</th><th>Arabic</th><th>Definition</th><th>Example / Question</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Substance</td><td class="ar">جوهر</td><td>Exists not in a subject; subsists by itself</td><td class="ar">إنسان، فرس</td></tr>
+      <tr><td>2</td><td>Quantity</td><td class="ar">كم</td><td>Accident divisible per se</td><td class="ar">خط، عدد</td></tr>
+      <tr><td>3</td><td>Quality</td><td class="ar">كيف</td><td>Accident not entailing division nor relation per se</td><td class="ar">حمرة، علم، شجاعة</td></tr>
+      <tr><td>4</td><td>Relation</td><td class="ar">إضافة</td><td>Relation conceived in comparison to another</td><td class="ar">أبوة، بنوة</td></tr>
+      <tr><td>5</td><td>Place</td><td class="ar">أين</td><td>Accident of body relative to its location</td><td>Q: أين؟ → كون الرجل في المسجد</td></tr>
+      <tr><td>6</td><td>Time</td><td class="ar">متى</td><td>Accident of body relative to a specific time</td><td>Q: متى؟ → قدوم المسافر في يوم كذا</td></tr>
+      <tr><td>7</td><td>Posture</td><td class="ar">وضع</td><td>State from relation of a thing's parts to each other and to external things</td><td class="ar">قيام، قعود، استلقاء</td></tr>
+      <tr><td>8</td><td>Possession</td><td class="ar">ملك</td><td>State from what surrounds and moves with the thing</td><td class="ar">تعمم، تقمص</td></tr>
+      <tr><td>9</td><td>Action</td><td class="ar">فعل</td><td>State of affecting something else</td><td class="ar">هيئة المسخِّن مادام يسخّن</td></tr>
+      <tr><td>10</td><td>Passion</td><td class="ar">انفعال</td><td>State of being affected by something else</td><td class="ar">هيئة المتسخِّن مادام يتسخّن</td></tr>
+    </tbody>
+  </table></div>
+  <div class="matn"><span class="matn-label">Mnemonic Verse</span>زيدٌ الطويلُ الأزرق ابنُ مالكٍ في بيتِه بالأمسِ كان متى — بيوتٌ عضنَ لاهٍ فالتوى وهذه عشرُ مقولات سوا</div>
+  </div>
+</section>
+
+<!-- ════ SECTION 6 ════ -->
+<section class="section" id="s6">
+<div class="section-header">
+    <span class="section-num">§ 06</span>
+    <h2 class="section-title">Definitions</h2>
+    <span class="section-title-ar">التعريفات</span>
+  
+    <button class="section-toggle" data-target="s6-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s6-body">
+on</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Components</th><th>Example for إنسان</th><th>Gives essence?</th><th>Distinguishes?</th></tr></thead>
+    <tbody>
+      <tr><td>Complete Definition</td><td class="ar">حد تام</td><td>Proximate genus + proximate differentia</td><td class="ar">حيوان ناطق</td><td>Yes (complete)</td><td>Yes</td></tr>
+      <tr><td>Incomplete Definition</td><td class="ar">حد ناقص</td><td>Remote genus + differentia, or differentia alone</td><td class="ar">جسم نام ناطق / ناطق</td><td>Partial</td><td>Yes</td></tr>
+      <tr><td>Complete Description</td><td class="ar">رسم تام</td><td>Proximate genus + property</td><td class="ar">حيوان ضاحك</td><td>No (accidents)</td><td>Yes</td></tr>
+      <tr><td>Incomplete Description</td><td class="ar">رسم ناقص</td><td>Remote genus + property, or property alone</td><td class="ar">جسم نام ضاحك / ضاحك</td><td>No</td><td>Partial</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Three Formal Conditions of a Good Definition</h2>
+  <h3>1. المساواة (Equality) — Comprehensive and Exclusive</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Violation</th><th>Type</th><th>Example</th><th>Problem</th></tr></thead>
+    <tbody>
+      <tr><td>Too narrow</td><td class="ar">أخص</td><td class="ar">إنسان = حيوان كاتب</td><td>Excludes non-writers</td></tr>
+      <tr><td>Too broad</td><td class="ar">أعم</td><td class="ar">إنسان = حيوان حساس</td><td>Includes all animals</td></tr>
+      <tr><td>Completely different</td><td class="ar">مباين</td><td class="ar">إنسان = حيوان صاهل</td><td>Defines horse, not human</td></tr>
+      <tr><td>Circular</td><td class="ar">دوري</td><td class="ar">العلم = إدراك المعلوم</td><td>Requires knowing معلوم first</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>2. الوضوح (Clarity) — Clearer than the Defined</h3>
+  <p>Violations: defining by an equally obscure term, a more obscure term, or by infinite regress.</p>
+
+  <h3>3. الإيجاب (Affirmation) — Prefer Positive over Negative</h3>
+  <p>When affirmation is possible, do not define by negation (e.g., "الحركة = عدم السكون" is improper when a positive definition exists).</p>
+  </div>
+</section>
+
+<!-- ════ SECTION 7 ════ -->
+<section class="section" id="s7">
+<div class="section-header">
+    <span class="section-num">§ 07</span>
+    <h2 class="section-title">Categorical Propositions</h2>
+    <span class="section-title-ar">القضايا الحملية</span>
+  
+    <button class="section-toggle" data-target="s7-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s7-body">
+
+  <div class="exam-tip">Memorize all <strong>eight unities of التناقض</strong> and be able to give a violation example for each. Al-Fārābī's reduction to وحدة النسبة is a popular follow-up question.</div>
+sitions</h2>
+  <div class="logic-square">
+    <div class="ls-cell a"><span class="ls-label">A</span><strong>Universal Affirmative</strong><br><span class="ar">موجبة كلية</span><br><small>كل إنسان حيوان</small></div>
+    <div class="ls-cell e"><span class="ls-label">E</span><strong>Universal Negative</strong><br><span class="ar">سالبة كلية</span><br><small>لا شيء من الإنسان بحجر</small></div>
+    <div class="ls-cell i"><span class="ls-label">I</span><strong>Particular Affirmative</strong><br><span class="ar">موجبة جزئية</span><br><small>بعض الإنسان كاتب</small></div>
+    <div class="ls-cell o"><span class="ls-label">O</span><strong>Particular Negative</strong><br><span class="ar">سالبة جزئية</span><br><small>بعض الحيوان ليس بإنسان</small></div>
+    <div class="ls-relations">
+      <strong>Relations in the Square of Opposition:</strong>
+      <div class="ls-arrow-row"><span><strong>Contradiction (تناقض)</strong> — A↔O, E↔I</span><span>Cannot both be true; cannot both be false</span></div>
+      <div class="ls-arrow-row"><span><strong>Contrariety (تضاد)</strong> — A↔E</span><span>Cannot both be true; CAN both be false</span></div>
+      <div class="ls-arrow-row"><span><strong>Sub-contrariety (تحت التضاد)</strong> — I↔O</span><span>CAN both be true; cannot both be false</span></div>
+      <div class="ls-arrow-row"><span><strong>Subalternation (تداخل)</strong> — A→I, E→O</span><span>If A true → I true; if I false → A false</span></div>
+    </div>
+  </div>
+
+  <h2>Three Types of Propositions by Mode of Existence</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Criterion of Truth</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>External</td><td class="ar">خارجية</td><td>External reality</td><td class="ar">زيد كاتب</td></tr>
+      <tr><td>Mental</td><td class="ar">ذهنية</td><td>Mental/conceptual reality</td><td class="ar">الإنسان نوع</td></tr>
+      <tr><td>Real/Absolute</td><td class="ar">حقيقية</td><td>Absolute "norms of things" (نفس الأمر)</td><td class="ar">الأربعة زوج</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>The Fifteen Modals (الموجهات الخمس عشرة)</h2>
+  <h3>Eight Simple Modals (البسائط)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>Name</th><th>Arabic</th><th>Formula</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Absolute Necessary</td><td class="ar">ضرورية مطلقة</td><td>Necessarily S is P as long as S exists</td></tr>
+      <tr><td>2</td><td>Absolute Perpetual</td><td class="ar">دائمة مطلقة</td><td>Always S is P (at all times)</td></tr>
+      <tr><td>3</td><td>General Conditional</td><td class="ar">مشروطة عامة</td><td>Necessarily S is P as long as S has property Q</td></tr>
+      <tr><td>4</td><td>General Conventional</td><td class="ar">عرفية عامة</td><td>Always S is P as long as S has property Q</td></tr>
+      <tr><td>5</td><td>Absolute Temporal</td><td class="ar">وقتية مطلقة</td><td>Necessarily S is P at specific time T</td></tr>
+      <tr><td>6</td><td>Absolute Diffuse</td><td class="ar">منتشرة مطلقة</td><td>Necessarily S is P at some unspecified time</td></tr>
+      <tr><td>7</td><td>General Absolute</td><td class="ar">مطلقة عامة</td><td>S is P at some time (actualized)</td></tr>
+      <tr><td>8</td><td>General Possible</td><td class="ar">ممكنة عامة</td><td>Not necessary that S is NOT P (سلب ضرورة جانب المخالف)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Key Distinction: إمكان عام vs إمكان خاص</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th></th><th>إمكان عام (General Possibility)</th><th>إمكان خاص (Special Possibility)</th></tr></thead>
+    <tbody>
+      <tr><td>Meaning</td><td>Negation of necessity of the opposite side only</td><td>Negation of necessity from <em>both</em> sides</td></tr>
+      <tr><td>Scope</td><td>One-sided negation</td><td>Bilateral negation</td></tr>
+      <tr><td>Strength</td><td>Weaker</td><td>Stronger</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Contradiction (التناقض) — Eight Conditions</h2>
+  <div class="def-box">
+    <div class="def-label">Definition of التناقض</div>
+    <div class="def-text">Two propositions differing in quality (one affirmative, one negative) and quantity (one universal, one particular) such that one's truth necessitates the other's falsity and vice versa.</div>
+  </div>
+  <p>The <strong>eight unities</strong> required for contradiction (unities 1-6 must be the same; unity 7 must differ in quality, unity 8 must differ in quantity):</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>Unity</th><th>Arabic</th><th>Violation example</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Subject</td><td class="ar">وحدة الموضوع</td><td>Comparing propositions about different subjects</td></tr>
+      <tr><td>2</td><td>Predicate</td><td class="ar">وحدة المحمول</td><td>Different predicates</td></tr>
+      <tr><td>3</td><td>Time</td><td class="ar">وحدة الزمان</td><td class="ar">زيد قائم أمس / ليس بقائم اليوم</td></tr>
+      <tr><td>4</td><td>Place</td><td class="ar">وحدة المكان</td><td class="ar">زيد في الدار / ليس في السوق</td></tr>
+      <tr><td>5</td><td>Relation</td><td class="ar">وحدة الإضافة</td><td class="ar">قائم بالقوة / ليس قائماً بالفعل</td></tr>
+      <tr><td>6</td><td>Condition/Part/Whole</td><td class="ar">وحدة الشرط</td><td>Different conditions apply</td></tr>
+      <tr><td>7</td><td>Quality (must differ)</td><td class="ar">اختلاف الكيف</td><td>One affirmative, one negative</td></tr>
+      <tr><td>8</td><td>Quantity (must differ)</td><td class="ar">اختلاف الكم</td><td>One universal, one particular</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note-box"><strong>Al-Fārābī's simplification:</strong> All eight reduce to <em>unity of relation</em> (وحدة النسبة). If the ratio of predicate to subject is the same, all other unities follow automatically.</div>
+  </div>
+</section>
+
+<!-- ════ SECTION 7B ════ NEW CONTENT -->
+<section class="section" id="s7b">
+<div class="section-header">
+    <span class="section-num">§ 07b</span>
+    <h2 class="section-title">Hypothetical Propositions</h2>
+    <span class="section-title-ar">القضايا الشرطية</span>
+  
+    <button class="section-toggle" data-target="s7b-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s7b-body">
+ion supplements the matn and is essential for the full treatment of القياس الاستثنائي (exceptive syllogism) and compound syllogisms.</div>
+
+  <h2>Categorical vs Hypothetical (حملية vs شرطية)</h2>
+  <p>A <strong>categorical proposition</strong> (<span class="ar">حملية</span>) attributes a predicate to a subject directly: <span class="ar">زيد قائم</span>. A <strong>hypothetical proposition</strong> (<span class="ar">شرطية</span>) expresses a relation between two propositions (the antecedent <span class="ar">مقدم</span> and the consequent <span class="ar">تالٍ</span>).</p>
+
+  <h2>Two Types of Hypothetical Propositions</h2>
+
+  <h3>1. Conditional (متصلة) — "If…then…"</h3>
+  <div class="def-box">
+    <div class="def-label">Definition — القضية المتصلة</div>
+    <div class="def-text">A proposition whose parts are linked by "if" (إن/لو/كلما), indicating that the truth of the consequent (<span class="ar">التالي</span>) follows the truth of the antecedent (<span class="ar">المقدم</span>).</div>
+  </div>
+
+  <p><strong>Two types of connection:</strong></p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Definition</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Necessitation (لزومية)</td><td class="ar">لزومية</td><td>The consequent necessarily follows the antecedent by rational necessity</td><td class="ar">إن كانت الشمس طالعة فالنهار موجود</td></tr>
+      <tr><td>Coincidental (اتفاقية)</td><td class="ar">اتفاقية</td><td>The two parts co-exist as a matter of fact, but one does not necessitate the other</td><td class="ar">إن كان الإنسان ناطقاً فالحمار ناهق</td></tr>
+    </tbody>
+  </table></div>
+
+  <p><strong>Quantifiers for متصلة:</strong></p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Quantity</th><th>Arabic</th><th>Quantifier</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>Universal Affirmative</td><td class="ar">كلية موجبة</td><td class="ar">كلما</td><td>Whenever the antecedent is true, the consequent is true — without exception</td></tr>
+      <tr><td>Universal Negative</td><td class="ar">كلية سالبة</td><td class="ar">ليس البتة أن (ليس كلما)</td><td>Never does the antecedent occur with the consequent</td></tr>
+      <tr><td>Particular Affirmative</td><td class="ar">جزئية موجبة</td><td class="ar">قد يكون</td><td>Sometimes the antecedent occurs with the consequent</td></tr>
+      <tr><td>Particular Negative</td><td class="ar">جزئية سالبة</td><td class="ar">قد لا يكون</td><td>Sometimes the antecedent occurs without the consequent</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>2. Disjunctive (منفصلة) — "Either…or…"</h3>
+  <div class="def-box">
+    <div class="def-label">Definition — القضية المنفصلة</div>
+    <div class="def-text">A proposition whose parts are separated by "either…or" (إما…وإما), indicating that the parts cannot both obtain simultaneously or cannot both be absent (depending on type).</div>
+  </div>
+
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Can both be true?</th><th>Can both be false?</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>True Disjunction</td><td class="ar">حقيقية (مانعة الجمع والخلو)</td><td>No</td><td>No</td><td class="ar">العدد إما زوج وإما فرد</td></tr>
+      <tr><td>Exclusive Disjunction</td><td class="ar">مانعة الجمع</td><td>No</td><td>Yes</td><td class="ar">هذا الجسم إما أبيض وإما أسود</td></tr>
+      <tr><td>Inclusive Disjunction</td><td class="ar">مانعة الخلو</td><td>Yes</td><td>No</td><td class="ar">زيد إما في البحر أو لا يغرق</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Truth Table for Exceptive Syllogism with متصلة</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Exception (استثناء)</th><th>Valid?</th><th>Conclusion</th><th>Rule Name</th></tr></thead>
+    <tbody>
+      <tr><td>Affirm the antecedent (عين المقدم)</td><td>✓ Valid</td><td>Consequent is true (عين التالي)</td><td>Modus Ponens (وضع)</td></tr>
+      <tr><td>Deny the consequent (نقيض التالي)</td><td>✓ Valid</td><td>Antecedent is false (نقيض المقدم)</td><td>Modus Tollens (رفع)</td></tr>
+      <tr><td>Affirm the consequent (عين التالي)</td><td>✗ Invalid</td><td>Nothing necessarily follows</td><td>Fallacy of affirming consequent</td></tr>
+      <tr><td>Deny the antecedent (نقيض المقدم)</td><td>✗ Invalid</td><td>Nothing necessarily follows</td><td>Fallacy of denying antecedent</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note-box"><strong>Why the last two are invalid:</strong> The conditional P→Q does not imply Q→P unless the relation is biconditional (لزوم من الجانبين). In a standard conditional, the arrow is one-way.</div>
+
+  <h3>Truth Table for Exceptive Syllogism with منفصلة حقيقية</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Exception</th><th>Conclusion</th></tr></thead>
+    <tbody>
+      <tr><td>Affirm part A</td><td>Part B is false</td></tr>
+      <tr><td>Affirm part B</td><td>Part A is false</td></tr>
+      <tr><td>Deny part A</td><td>Part B is true</td></tr>
+      <tr><td>Deny part B</td><td>Part A is true</td></tr>
+    </tbody>
+  </table></div>
+  <p>For <strong>مانعة الجمع</strong> (can both be false): affirming one denies the other, but denying one does <em>not</em> affirm the other (could be a third option). For <strong>مانعة الخلو</strong> (can both be true): denying one affirms the other, but affirming one does <em>not</em> deny the other.</p>
+
+  <h2>Contradiction of Hypothetical Propositions</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Original</th><th>Contradiction</th></tr></thead>
+    <tbody>
+      <tr><td class="ar">كلما كان أ فب (كلية موجبة متصلة)</td><td class="ar">قد لا يكون إذا كان أ فب (جزئية سالبة)</td></tr>
+      <tr><td class="ar">ليس البتة إذا كان أ فب (كلية سالبة)</td><td class="ar">قد يكون إذا كان أ فب (جزئية موجبة)</td></tr>
+      <tr><td class="ar">دائماً إما أ وإما ب (كلية موجبة منفصلة)</td><td class="ar">قد لا يكون إما أ وإما ب (جزئية سالبة)</td></tr>
+    </tbody>
+  </table></div>
+  </div>
+</section>
+
+<!-- ════ SECTION 7C ════ NEW CONTENT -->
+<section class="section" id="s7c">
+<div class="section-header">
+    <span class="section-num">§ 07c</span>
+    <h2 class="section-title">Immediate Inference</h2>
+    <span class="section-title-ar">الاستدلال المباشر — العكس</span>
+  
+    <button class="section-toggle" data-target="s7c-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s7c-body">
+ inference (<span class="ar">الاستدلال المباشر</span>) derives a conclusion from a <em>single</em> proposition without a middle term — unlike the syllogism which requires two premises and a middle term.</div>
+
+  <h2>Simple Conversion (العكس المستوي)</h2>
+  <div class="def-box">
+    <div class="def-label">Definition — العكس المستوي</div>
+    <div class="def-text">Transposing subject and predicate while preserving quality (affirmative/negative) and truth-value, potentially changing quantity.</div>
+  </div>
+
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Original (أصل)</th><th>Converse (عكس)</th><th>Valid?</th><th>Proof method</th></tr></thead>
+    <tbody>
+      <tr><td>A: كل إنسان حيوان</td><td>I: بعض حيوان إنسان</td><td>✓ Valid</td><td>Reductio ad absurdum: if "لا شيء من الحيوان بإنسان" + original → "لا شيء من الإنسان بإنسان" — contradiction</td></tr>
+      <tr><td>E: لا شيء من الإنسان بحجر</td><td>E: لا شيء من الحجر بإنسان</td><td>✓ Valid (same quality and quantity)</td><td>If "بعض الحجر إنسان" → that rock is human → some human is a rock — contradicts original</td></tr>
+      <tr><td>I: بعض الإنسان كاتب</td><td>I: بعض الكاتب إنسان</td><td>✓ Valid</td><td>The very individual who is both a human and a writer converts naturally</td></tr>
+      <tr><td>O: بعض الحيوان ليس بإنسان</td><td>— (does not convert)</td><td>✗ Invalid</td><td>Counter-example: O is true (some animals aren't humans); converse "بعض الإنسان ليس بحيوان" is false</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Contraposition — Ancient Method (عكس النقيض عند القدماء)</h2>
+  <div class="def-box">
+    <div class="def-label">Ancient Contraposition</div>
+    <div class="def-text">Replace subject with the negation of the predicate, and predicate with the negation of the subject, preserving quality and truth.</div>
+  </div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Original</th><th>Ancient Contrapositive</th><th>Valid?</th></tr></thead>
+    <tbody>
+      <tr><td>A: كل إنسان حيوان</td><td>A: كل لا حيوان لا إنسان</td><td>✓</td></tr>
+      <tr><td>E: لا شيء من الإنسان بحجر</td><td>I: بعض لا حجر ليس لا إنسان (complex)</td><td>Debated</td></tr>
+      <tr><td>I: بعض إنسان حيوان</td><td>Does not convert by this method</td><td>✗</td></tr>
+      <tr><td>O: بعض إنسان ليس حيوان</td><td>Complex — see below</td><td>Debated</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Contraposition — Modern Method (عكس النقيض عند المتأخرين)</h2>
+  <div class="def-box">
+    <div class="def-label">Modern Contraposition</div>
+    <div class="def-text">Replace the subject with the negation of the predicate (لا-ص), keep the original predicate's role as the new predicate, and change quality.</div>
+  </div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Original</th><th>Modern Contrapositive</th><th>Valid?</th></tr></thead>
+    <tbody>
+      <tr><td>A: كل إنسان حيوان</td><td>E: لا شيء من لا حيوان بإنسان</td><td>✓</td></tr>
+      <tr><td>E: لا شيء من إنسان بحجر</td><td>I or O (depending on system)</td><td>Debated</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note-box"><strong>Why two methods?</strong> The ancient method preserves quality (both affirmative→affirmative); the modern changes it. The matn follows the ancient method, consistent with Ibn Sīnā's early works.</div>
+
+  <h2>Obversion (عكس الكيف — not traditionally named in Arabic logic)</h2>
+  <p>Though not always named separately in the Arabic tradition, the idea of changing quality while negating the predicate produces:</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Original</th><th>Obverse</th></tr></thead>
+    <tbody>
+      <tr><td>A: كل إنسان حيوان</td><td>E: لا شيء من الإنسان بلا حيوان</td></tr>
+      <tr><td>E: لا شيء من إنسان بحجر</td><td>A: كل إنسان لا حجر</td></tr>
+      <tr><td>I: بعض إنسان حيوان</td><td>O: بعض إنسان ليس لا حيوان</td></tr>
+      <tr><td>O: بعض إنسان ليس حيوان</td><td>I: بعض إنسان لا حيوان</td></tr>
+    </tbody>
+  </table></div>
+  </div>
+</section>
+
+<!-- ════ SECTION 8 ════ -->
+<section class="section" id="s8">
+<div class="section-header">
+    <span class="section-num">§ 08</span>
+    <h2 class="section-title">Syllogism</h2>
+    <span class="section-title-ar">القياس</span>
+  
+    <button class="section-toggle" data-target="s8-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s8-body">
+
+  <div class="exam-tip">Know the valid moods for <strong>all four figures</strong>. Also memorise the rule: <span class="ar">النتيجة تتبع أخس المقدمتين</span> and its exceptions.</div>
+ class="def-label">Definition of القياس</div>
+    <div class="def-text"><span class="ar">قول مؤلف من قضايا يلزم عنها لذاتها قول آخر بعد تسليم تلك القضايا</span><br>Composed speech from propositions from which another statement necessarily follows due to those very propositions themselves, after they are accepted.</div>
+  </div>
+
+  <div class="note-box"><strong>"لذاتها" excludes</strong> قياس المساواة (syllogism of equality), which requires an external premise: "مساوي المساوي مساو لذلك الشيء."</div>
+
+  <h2>The Four Figures</h2>
+  <div class="figure-grid">
+    <div class="figure-box">
+      <h4>Figure 1 — الشكل الأول</h4>
+      <p>Middle term: <strong>predicate in minor, subject in major</strong><br>Conditions: minor must be affirmative; major must be universal</p>
+      <div class="syllogism">كل م ص (كبرى)<br>كل س م (صغرى)<br><span class="conclusion">∴ كل س ص</span></div>
+      <p style="font-size:12.5px; margin-top:10px; color: var(--margin)">The "perfect figure" — production is immediate and intuitive. 4 valid moods: AA→A, AE→E, IA→I, IE→O</p>
+    </div>
+    <div class="figure-box">
+      <h4>Figure 2 — الشكل الثاني</h4>
+      <p>Middle term: <strong>predicate in both premises</strong><br>Conditions: premises must differ in quality; major must be universal</p>
+      <div class="syllogism">كل م ص / لا شيء من م بص<br>كل م س / لا شيء من م بس<br><span class="conclusion">∴ لا شيء من س بص</span></div>
+      <p style="font-size:12.5px; margin-top:10px; color: var(--margin)">Only produces negative conclusions. 4 valid moods: AE→E, EA→E, IE→O, OA→O</p>
+    </div>
+    <div class="figure-box">
+      <h4>Figure 3 — الشكل الثالث</h4>
+      <p>Middle term: <strong>subject in both premises</strong><br>Conditions: minor must be affirmative; at least one premise universal</p>
+      <div class="syllogism">كل س ص / بعض س ص<br>كل س م / بعض س م<br><span class="conclusion">∴ بعض م ص</span></div>
+      <p style="font-size:12.5px; margin-top:10px; color: var(--margin)">Only produces particular conclusions. 6 valid moods.</p>
+    </div>
+    <div class="figure-box">
+      <h4>Figure 4 — الشكل الرابع</h4>
+      <p>Middle term: <strong>subject in minor, predicate in major</strong><br>Reversal of Figure 1 — weakest figure</p>
+      <div class="syllogism">كل م ص / لا شيء من م بص<br>كل س م / بعض س م<br><span class="conclusion">∴ بعض ص س (or negative)</span></div>
+      <p style="font-size:12.5px; margin-top:10px; color: var(--margin)">Produces only particular or E conclusions. 8 valid moods.</p>
+    </div>
+  </div>
+
+  <h2>Rule: النتيجة تتبع أخس المقدمتين</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>If premises are…</th><th>Conclusion is…</th><th>Exception</th></tr></thead>
+    <tbody>
+      <tr><td>Both affirmative</td><td>Affirmative</td><td>—</td></tr>
+      <tr><td>One negative</td><td>Negative</td><td>—</td></tr>
+      <tr><td>Both universal</td><td>Universal (in Figures 1, 2)</td><td>Figure 3: A+A gives I, not A</td></tr>
+      <tr><td>One particular</td><td>Particular</td><td>Figure 2: IE gives O (particular negative)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Demonstrative Syllogism — لمّي vs إنّي</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th></th><th>البرهان اللمّي</th><th>البرهان الإنّي</th></tr></thead>
+    <tbody>
+      <tr><td>Middle term</td><td>Real cause of the conclusion</td><td>Effect (معلول) of the major term</td></tr>
+      <tr><td>Answers question</td><td class="ar">لم؟ (Why?)</td><td class="ar">هل؟ (That?)</td></tr>
+      <tr><td>Certainty level</td><td>Strongest — explains WHY</td><td>Weaker — only establishes THAT</td></tr>
+      <tr><td>Example</td><td>Rational animal → can laugh</td><td>Fever (effect) → corrupted humors (cause)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Reductio ad Absurdum (قياس الخلف)</h2>
+  <p><strong>Structure:</strong> Assume the negation of what you want to prove → show this leads to contradiction → therefore the negation is false → therefore the original claim is true.</p>
+  <p><strong>Example:</strong> To prove A converts to I (كل إنسان حيوان → بعض حيوان إنسان):<br>
+  Assume "لا شيء من الحيوان بإنسان" (no animal is human). Combined with the original, we get "لا شيء من الإنسان بإنسان" — a contradiction. Therefore the assumption is false; therefore "بعض حيوان إنسان."</p>
+
+  <h2>Induction and Analogy</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Definition</th><th>Certainty</th></tr></thead>
+    <tbody>
+      <tr><td>Complete Induction</td><td class="ar">استقراء تام</td><td>All individuals examined (القياس المقسم)</td><td>Certain (يقين)</td></tr>
+      <tr><td>Incomplete Induction</td><td class="ar">استقراء ناقص</td><td>Most individuals examined (e.g., "all animals move lower jaw" — but crocodile falsifies)</td><td>Probable (ظن غالب)</td></tr>
+      <tr><td>Legal Analogy</td><td class="ar">قياس فقهي (تمثيل)</td><td>Judging a branch (فرع) by an original (أصل) via a shared cause (علة جامعة)</td><td>Probable — requires conditions</td></tr>
+    </tbody>
+  </table></div>
+  </div>
+</section>
+
+<!-- ════ SECTION 9 ════ -->
+<section class="section" id="s9">
+<div class="section-header">
+    <span class="section-num">§ 09</span>
+    <h2 class="section-title">Fallacies</h2>
+    <span class="section-title-ar">الأغاليط</span>
+  
+    <button class="section-toggle" data-target="s9-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s9-body">
+lacies</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Root Cause</th><th>Arabic</th><th>Mechanism</th></tr></thead>
+    <tbody>
+      <tr><td>Misunderstanding</td><td class="ar">سوء الفهم</td><td>Soul submerged in material darkness; imagination dominating reason</td></tr>
+      <tr><td>False resembling true</td><td class="ar">اشتباه الكواذب بالصوادق</td><td>In words (لفظ), meaning (معنى), or composition (تركيب)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Verbal Fallacies (مغالطات لفظية)</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Equivocation</td><td class="ar">اشتراك لفظي</td><td>"عين" used as eye in one premise, as sun in another</td></tr>
+      <tr><td>Literal/metaphorical ambiguity</td><td class="ar">اشتراك معنوي</td><td>"زيد أسد" (metaphor) + "كل أسد له مخالب" (literal) → "زيد له مخالب"</td></tr>
+      <tr><td>Possessive/descriptive confusion</td><td class="ar">اشتباه التركيب</td><td>"غلام حسن" as "Hasan's servant" vs "a handsome boy"</td></tr>
+      <tr><td>Composing separated</td><td class="ar">جمع المنفصل</td><td>"طبيب وماهر" → "طبيب ماهر" (skilled in medicine, vs skilled in something else)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Semantic Fallacies (مغالطات معنوية)</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Begging the question</td><td class="ar">مصادرة على المطلوب</td><td>Conclusion assumed in a premise</td></tr>
+      <tr><td>Four terms</td><td class="ar">عدم تكرر الحد الأوسط</td><td>Middle term has different meanings in the two premises</td></tr>
+      <tr><td>Part for whole cause</td><td class="ar">أخذ جزء العلة مكان العلة</td><td>70 men move a rock; ∴ 1 man can move 1/70 its distance — fallacy</td></tr>
+      <tr><td>Mental → external category mistake</td><td class="ar">أخذ الاعتبارات الذهنية عينية</td><td>"الحدوث حادث" — treating the concept of origination as an originated thing</td></tr>
+      <tr><td>Example for the thing</td><td class="ar">أخذ مثال الشيء مكانه</td><td>Pointing to a picture of fire and saying "this burns"</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Fallacy Checklist</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>Check</th><th>If violated →</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Are all terms univocal throughout?</td><td>Equivocation fallacy</td></tr>
+      <tr><td>2</td><td>Is the middle term identical in both premises?</td><td>Four-term (quaternio terminorum) fallacy</td></tr>
+      <tr><td>3</td><td>Is the minor premise affirmative (Figure 1)?</td><td>No conclusion</td></tr>
+      <tr><td>4</td><td>Is the major premise universal (Figures 1 &amp; 2)?</td><td>No conclusion</td></tr>
+      <tr><td>5</td><td>Are the premises actually true?</td><td>Valid but unsound</td></tr>
+      <tr><td>6</td><td>Is the conclusion new (not in the premises)?</td><td>Begging the question</td></tr>
+      <tr><td>7</td><td>Does the conclusion follow from the premises alone?</td><td>Non sequitur or missing external premise</td></tr>
+    </tbody>
+  </table></div>
+  </div>
+</section>
+
+<!-- ════ SECTION 10 ════ -->
+<section class="section" id="s10">
+<div class="section-header">
+    <span class="section-num">§ 10</span>
+    <h2 class="section-title">The Three Matters of Every Science</h2>
+    <span class="section-title-ar">الأمور الثلاثة</span>
+  
+    <button class="section-toggle" data-target="s10-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s10-body">
+   <thead><tr><th>Matter</th><th>Arabic</th><th>Definition</th><th>In Logic</th></tr></thead>
+    <tbody>
+      <tr><td>Subject</td><td class="ar">موضوع</td><td>What the science investigates regarding essential accidents</td><td>Known concepts and propositions, insofar as they lead to the unknown</td></tr>
+      <tr><td>Principles</td><td class="ar">مبادي</td><td>What the problems are built upon (conceptual and judgmental)</td><td>Definitions of terms + self-evident propositions (أوليات، متواترات، etc.)</td></tr>
+      <tr><td>Problems</td><td class="ar">مسائل</td><td>What the science contains and aims to prove</td><td>E.g., "Every syllogism in Figure 1 is productive if the minor is affirmative and the major is universal"</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note-box">The existence and essence of the subject are <em>not</em> investigated within the science — they are presupposed (مفروض الوجود). Proving the subject's existence would require infinite regress.</div>
+  </div>
+</section>
+
+<!-- ════ SECTION 11 ════ -->
+<section class="section" id="s11">
+<div class="section-header">
+    <span class="section-num">§ 11</span>
+    <h2 class="section-title">The Eight Prefaces</h2>
+    <span class="section-title-ar">الرؤوس الثمانية</span>
+  
+    <button class="section-toggle" data-target="s11-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s11-body">
+   <thead><tr><th>#</th><th>Preface</th><th>Arabic</th><th>For Logic (al-Mirqāt)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Purpose (Final Cause)</td><td class="ar">الغرض</td><td>Protection of the mind from error in thinking (عصمة الذهن عن الخطأ في الفكر)</td></tr>
+      <tr><td>2</td><td>Title/Naming</td><td class="ar">التسمية</td><td>"المنطق" perfects speech (نطق) — both external (speaking) and internal (conceptualizing)</td></tr>
+      <tr><td>3</td><td>Author</td><td class="ar">المؤلف</td><td>Mawlānā Faḍl Imām al-Khayrābādī</td></tr>
+      <tr><td>4</td><td>Rank/Order</td><td class="ar">المرتبة</td><td>After basic ethics and geometry; before theology and philosophy</td></tr>
+      <tr><td>5</td><td>Which science</td><td class="ar">من أي علم هو</td><td>Instrumental science (آلي) — a tool, not an end</td></tr>
+      <tr><td>6</td><td>Division</td><td class="ar">القسمة</td><td>Words → Five universals → Definitions → Propositions → Syllogism → Five Arts (9–10 sections)</td></tr>
+      <tr><td>7</td><td>Methods of teaching</td><td class="ar">أنواع التعليم</td><td>Division (تقسيم), Analysis (تحليل), Definition (تحديد), Demonstration (برهان)</td></tr>
+      <tr><td>8</td><td>Notice of contents</td><td class="ar">التنبيه</td><td>Indication that the book contains all or some of the above</td></tr>
+    </tbody>
+  </table></div>
+  </div>
+</section>
+
+<!-- ════ SECTION 12 — NEW ════ -->
+<section class="section" id="s12">
+<div class="section-header">
+    <span class="section-num">§ 12</span>
+    <h2 class="section-title">The Five Arts of Logic</h2>
+    <span class="section-title-ar">الصناعات الخمس</span>
+  
+    <button class="section-toggle" data-target="s12-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="s12-body">
+Arts represent the full scope of what can be done with syllogistic reasoning. Logic does not merely study valid inference — it classifies all forms of discourse by their epistemic status and purpose.</div>
+
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>Art</th><th>Arabic</th><th>Purpose</th><th>Premises used</th><th>Result in listener</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Demonstration</td><td class="ar">برهان</td><td>Establishing truth (الحق)</td><td class="ar">يقينيات</td><td>Certainty (يقين)</td><td>Mathematical and theological proofs</td></tr>
+      <tr><td>2</td><td>Dialectic</td><td class="ar">جدل</td><td>Persuasion and refutation (إقناع)</td><td class="ar">مشهورات (widely accepted opinions)</td><td>Strong opinion (ظن)</td><td>Academic debates, kalam discourse</td></tr>
+      <tr><td>3</td><td>Rhetoric</td><td class="ar">خطابة</td><td>Influence and exhortation (تأثير)</td><td class="ar">مقبولات (plausible beliefs)</td><td>Assent / conviction (تصديق ظني)</td><td>Sermons, political speeches</td></tr>
+      <tr><td>4</td><td>Poetics</td><td class="ar">شعر</td><td>Imagination and pleasure (تخييل)</td><td class="ar">مخيلات (imaginative representations)</td><td>Imaginative effect (تخييل)</td><td>Poetry, narrative, metaphor</td></tr>
+      <tr><td>5</td><td>Sophistry</td><td class="ar">سفسطة</td><td>Deception (إضلال)</td><td class="ar">مشبهات (truth-simulating falsehoods)</td><td>False certainty (يقين كاذب)</td><td>Sophistic arguments designed to mislead</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Dialectic (الجدل) — Expanded</h2>
+  <p>Dialectic uses <strong>مشهورات</strong> — propositions widely accepted by the majority, the scholars, or a specific authority. Unlike demonstration, it does not require premises to be <em>actually</em> true, only widely received.</p>
+
+  <h3>Types of مشهورات</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Definition</th></tr></thead>
+    <tbody>
+      <tr><td>Universally accepted</td><td class="ar">مشهورة عند الكل</td><td>Accepted by every rational person regardless of training</td></tr>
+      <tr><td>Accepted by the learned</td><td class="ar">مشهورة عند الحكماء</td><td>Accepted within a scholarly tradition</td></tr>
+      <tr><td>Accepted by a school</td><td class="ar">مشهورة عند الفرقة</td><td>Accepted within a particular group or school</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Purpose of Studying Dialectic in Logic</h3>
+  <p>Dialectic trains one to argue from premises the <em>opponent</em> accepts, to expose contradictions in their position. Unlike demonstration which produces knowledge in oneself, dialectic produces conviction in <em>the other</em>.</p>
+
+  <div class="note-box"><strong>Important distinction:</strong> A dialectical argument can be valid in <em>form</em> yet fail to demonstrate truth, because its premises (مشهورات) are not verified. The ability to construct a valid dialectical argument does not guarantee the conclusion is true — it only guarantees the opponent is committed to it if they accept the premises.</div>
+
+  <h2>Rhetoric (الخطابة) — Expanded</h2>
+  <p>Rhetoric uses <strong>مقبولات</strong> — premises believed because they come from a trusted source (authority, tradition, common sense) rather than demonstration. Rhetoric aims to produce <em>assent</em> in a general audience without their following a full proof.</p>
+
+  <p><strong>The enthymeme (قياس خطابي):</strong> A syllogism with a suppressed premise, relying on the audience to supply what is assumed. Example: "He had the motive [implied: and anyone with motive is suspicious], therefore he is the killer." The middle premise is left unstated because the audience accepts it without it being spoken.</p>
+
+  <h2>Sophistry (السفسطة) — Five Types of Fallacious Premises</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Type</th><th>Arabic</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Imaginary</td><td class="ar">مخيلات</td><td>Premises that produce an imaginative effect regardless of truth</td></tr>
+      <tr><td>Widely accepted but false</td><td class="ar">مشهورات كاذبة</td><td>Premises accepted by many but actually untrue</td></tr>
+      <tr><td>Truth-resembling</td><td class="ar">مشبهات</td><td>Premises that appear true but are false upon examination</td></tr>
+      <tr><td>Deceptive particulars</td><td class="ar">مغلطات</td><td>Specific fallacious premises designed to mislead</td></tr>
+      <tr><td>False opinions</td><td class="ar">مظنونات كاذبة</td><td>False premises that appear merely probable</td></tr>
+    </tbody>
+  </table></div>
+  </div>
+</section>
+
+<!-- ════ GLOSSARY — NEW ════ -->
+<section class="section" id="glossary">
+<div class="section-header">
+    <span class="section-num">§ GL</span>
+    <h2 class="section-title">Glossary of Technical Terms</h2>
+    <span class="section-title-ar">المصطلحات التقنية</span>
+  
+    <button class="section-toggle" data-target="glossary-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="glossary-body">
+rapid review. Memorize the Arabic along with the precise logical definition — not merely the English equivalent — for the verbal examination.</div>
+
+  <div class="glossary-grid">
+    <div class="glossary-item"><span class="g-ar">التصور</span><span class="g-en">Conception</span><div class="g-def">Simple apprehension of a meaning without affirmation or negation</div></div>
+    <div class="glossary-item"><span class="g-ar">التصديق</span><span class="g-en">Assent / Judgment</span><div class="g-def">Apprehension with affirmation or negation of a relation between two things</div></div>
+    <div class="glossary-item"><span class="g-ar">البديهي</span><span class="g-en">Self-evident</span><div class="g-def">Known without need for acquisition or proof</div></div>
+    <div class="glossary-item"><span class="g-ar">الكسبي / النظري</span><span class="g-en">Acquired / Discursive</span><div class="g-def">Known only through thinking (فكر) and arrangement of premises</div></div>
+    <div class="glossary-item"><span class="g-ar">الكلي</span><span class="g-en">Universal</span><div class="g-def">What is not prevented by its very conception from applying to many</div></div>
+    <div class="glossary-item"><span class="g-ar">الجزئي</span><span class="g-en">Particular</span><div class="g-def">What is prevented by its very conception from applying to many</div></div>
+    <div class="glossary-item"><span class="g-ar">الموضوع</span><span class="g-en">Subject</span><div class="g-def">That about which a judgment is made in a proposition; also: the subject matter of a science</div></div>
+    <div class="glossary-item"><span class="g-ar">المحمول</span><span class="g-en">Predicate</span><div class="g-def">That which is affirmed or denied of the subject</div></div>
+    <div class="glossary-item"><span class="g-ar">الحد الأوسط</span><span class="g-en">Middle Term</span><div class="g-def">The term appearing in both premises of a syllogism but not in the conclusion</div></div>
+    <div class="glossary-item"><span class="g-ar">الصغرى / الكبرى</span><span class="g-en">Minor / Major Premise</span><div class="g-def">Minor contains the subject of conclusion + middle term; Major contains predicate of conclusion + middle term</div></div>
+    <div class="glossary-item"><span class="g-ar">التناقض</span><span class="g-en">Contradiction</span><div class="g-def">Two propositions differing in quality and quantity such that one's truth necessitates the other's falsity</div></div>
+    <div class="glossary-item"><span class="g-ar">التضاد</span><span class="g-en">Contrariety</span><div class="g-def">Two universal propositions (A and E) that cannot both be true but can both be false</div></div>
+    <div class="glossary-item"><span class="g-ar">التداخل</span><span class="g-en">Subalternation</span><div class="g-def">Relation between A and I (or E and O): truth of the universal implies truth of the particular</div></div>
+    <div class="glossary-item"><span class="g-ar">الدلالة المطابقية</span><span class="g-en">Correspondence indication</span><div class="g-def">Word indicates the complete meaning for which it was placed</div></div>
+    <div class="glossary-item"><span class="g-ar">الدلالة التضمنية</span><span class="g-en">Implicational indication</span><div class="g-def">Word indicates a part of its placed meaning</div></div>
+    <div class="glossary-item"><span class="g-ar">الدلالة الالتزامية</span><span class="g-en">Concomitant indication</span><div class="g-def">Word indicates a meaning outside its placed meaning that is necessarily connected to it</div></div>
+    <div class="glossary-item"><span class="g-ar">الحد التام</span><span class="g-en">Complete Definition</span><div class="g-def">Proximate genus + proximate differentia (e.g., حيوان ناطق for الإنسان)</div></div>
+    <div class="glossary-item"><span class="g-ar">الرسم التام</span><span class="g-en">Complete Description</span><div class="g-def">Proximate genus + property (e.g., حيوان ضاحك for الإنسان)</div></div>
+    <div class="glossary-item"><span class="g-ar">المقدم / التالي</span><span class="g-en">Antecedent / Consequent</span><div class="g-def">In a conditional: the "if" part (مقدم) and the "then" part (تالٍ)</div></div>
+    <div class="glossary-item"><span class="g-ar">الضرورة</span><span class="g-en">Necessity</span><div class="g-def">Impossibility of the predicate's separation from the subject (امتناع الانفكاك)</div></div>
+    <div class="glossary-item"><span class="g-ar">الإمكان العام</span><span class="g-en">General Possibility</span><div class="g-def">Negation of necessity of the opposite side only (سلب ضرورة جانب المخالف)</div></div>
+    <div class="glossary-item"><span class="g-ar">الإمكان الخاص</span><span class="g-en">Special Possibility</span><div class="g-def">Negation of necessity from both sides (سلب ضرورة الطرفين)</div></div>
+    <div class="glossary-item"><span class="g-ar">العكس المستوي</span><span class="g-en">Simple Conversion</span><div class="g-def">Transposing subject and predicate while preserving quality and truth</div></div>
+    <div class="glossary-item"><span class="g-ar">قياس الخلف</span><span class="g-en">Reductio ad Absurdum</span><div class="g-def">Proving a claim by assuming its negation and deriving a contradiction</div></div>
+    <div class="glossary-item"><span class="g-ar">الاستقراء التام</span><span class="g-en">Complete Induction</span><div class="g-def">Judgment about a universal based on examining all its individuals</div></div>
+    <div class="glossary-item"><span class="g-ar">التمثيل / القياس الفقهي</span><span class="g-en">Legal Analogy</span><div class="g-def">Attributing a judgment to a branch case by reason of a shared cause with the original case</div></div>
+    <div class="glossary-item"><span class="g-ar">المصادرة على المطلوب</span><span class="g-en">Petitio Principii</span><div class="g-def">Begging the question — the conclusion is assumed within the premises</div></div>
+    <div class="glossary-item"><span class="g-ar">الجنس القريب</span><span class="g-en">Proximate Genus</span><div class="g-def">The genus directly above the species, answering "ما هو" for that species</div></div>
+    <div class="glossary-item"><span class="g-ar">الفصل المقوّم</span><span class="g-en">Constitutive Differentia</span><div class="g-def">Differentia that is part of the essence of the species (e.g., ناطق for إنسان)</div></div>
+    <div class="glossary-item"><span class="g-ar">الخاصة الشاملة</span><span class="g-en">Comprehensive Property</span><div class="g-def">Property applying to ALL individuals of the species (e.g., الضاحك بالقوة)</div></div>
+  </div>
+
+  <h2 style="margin-top: 40px;">Verbatim Definitions to Memorize</h2>
+  <p>These are the definitions most likely to be tested word-for-word in a verbal examination:</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Term</th><th>Definition (Arabic)</th></tr></thead>
+    <tbody>
+      <tr><td>المنطق</td><td class="ar">آلة قانونية تعصم مراعاتها الذهن عن الخطأ في الفكر</td></tr>
+      <tr><td>التصور</td><td class="ar">إدراك المعنى من غير أن يحكم عليه بشيء</td></tr>
+      <tr><td>التصديق</td><td class="ar">إدراك المعنى مع الحكم عليه</td></tr>
+      <tr><td>الكلي</td><td class="ar">ما لا يمنع نفس تصوره عن وقوع الشركة فيه</td></tr>
+      <tr><td>الجزئي</td><td class="ar">ما يمنع نفس تصوره عن وقوع الشركة فيه</td></tr>
+      <tr><td>الجنس</td><td class="ar">كلي مقول على كثيرين مختلفين بالحقائق في جواب ما هو</td></tr>
+      <tr><td>الفصل</td><td class="ar">كلي مقول على الشيء في جواب أي شيء هو في ذاته</td></tr>
+      <tr><td>الخاصة</td><td class="ar">كلي خارج عن حقيقة الأفراد محمول على أفراد واقعة تحت حقيقة واحدة فقط</td></tr>
+      <tr><td>القياس</td><td class="ar">قول مؤلف من قضايا يلزم عنها لذاتها قول آخر بعد تسليم تلك القضايا</td></tr>
+      <tr><td>التناقض</td><td class="ar">اختلاف القضيتين بالإيجاب والسلب بحيث يقتضي لذاته صدق إحداهما كذب الأخرى وبالعكس</td></tr>
+      <tr><td>الحد التام</td><td class="ar">ما تركّب من الجنس القريب والفصل القريب</td></tr>
+    </tbody>
+  </table></div>
+  </div>
+</section>
+
+<!-- ════ STUDY PLAN ════ -->
+<section class="section" id="study-plan">
+<div class="section-header">
+    <span class="section-num">§ SP</span>
+    <h2 class="section-title">30-Day Study Plan</h2>
+    <span class="section-title-ar">خطة المذاكرة</span>
+  
+    <button class="section-toggle" data-target="study-plan-body" title="Collapse section" aria-expanded="true">▼</button>
+  </div>
+
+  <div class="section-body" id="study-plan-body">
+="study-day"><div class="day-num">DAYS 1–2</div><div class="day-topic">Five senses of ʻilm · Māturīdī position · Peripatetic critique</div></div>
+    <div class="study-day"><div class="day-num">DAYS 3–4</div><div class="day-topic">بديهي vs كسبي · Definition of فكر · Four scenarios</div></div>
+    <div class="study-day"><div class="day-num">DAY 5</div><div class="day-topic">Six self-evident truths · Five internal senses · Four causes of logic</div></div>
+    <div class="study-day"><div class="day-num">DAYS 6–7</div><div class="day-topic">Six types of indication · Three divisions of conventional verbal indication</div></div>
+    <div class="study-day"><div class="day-num">DAY 8</div><div class="day-topic">Debates on الالتزام · Al-Rāzī objection and responses</div></div>
+    <div class="study-day"><div class="day-num">DAY 9</div><div class="day-topic">مفرد vs مركب · Classification of simple words (univocal, analogical, homonymous, transferred)</div></div>
+    <div class="study-day"><div class="day-num">DAY 10</div><div class="day-topic">Complete compounds: خبر and إنشاء · Incomplete compounds</div></div>
+    <div class="study-day"><div class="day-num">DAYS 11–14</div><div class="day-topic">Five universals in depth · Ten categories · Division of فصل and خاصة</div></div>
+    <div class="study-day"><div class="day-num">DAYS 15–16</div><div class="day-topic">Four types of definition · Three formal conditions · Examples and violations</div></div>
+    <div class="study-day"><div class="day-num">DAYS 17–18</div><div class="day-topic">Categorical propositions · Square of opposition · Quantifiers</div></div>
+    <div class="study-day"><div class="day-num">DAYS 19–20</div><div class="day-topic">Hypothetical propositions (§7b) · Conditional and disjunctive · Truth tables</div></div>
+    <div class="study-day"><div class="day-num">DAYS 21–22</div><div class="day-topic">Fifteen modals · إمكان عام vs خاص · Modal contradiction</div></div>
+    <div class="study-day"><div class="day-num">DAY 23</div><div class="day-topic">Immediate inference (§7c) · Simple conversion proofs · Contraposition methods</div></div>
+    <div class="study-day"><div class="day-num">DAYS 24–25</div><div class="day-topic">Four figures · Valid moods in each · النتيجة تتبع أخس المقدمتين</div></div>
+    <div class="study-day"><div class="day-num">DAYS 26–27</div><div class="day-topic">Demonstration (لمّي vs إنّي) · Reductio · Induction · Legal analogy</div></div>
+    <div class="study-day"><div class="day-num">DAY 28</div><div class="day-topic">Fallacies: verbal and semantic types · Fallacy checklist</div></div>
+    <div class="study-day"><div class="day-num">DAY 29</div><div class="day-topic">Three matters · Eight prefaces · Five arts (§12)</div></div>
+    <div class="study-day review"><div class="day-num">DAY 30</div><div class="day-topic"><strong>Full review:</strong> Glossary · Verbatim definitions · Mock verbal examination questions</div></div>
+  </div>
+  </div>
+</section>
+
+<footer id="footer">
+  <p>المرقات — Technical Study Guide for Advanced ʻIlm al-Manṭiq Examination</p>
+  <p style="margin-top:8px">Based on Mawlānā Faḍl Imām al-Khayrābādī's <em>al-Mirqāt</em> with commentary from Muḥammad Ilyās al-Gujarātī's <em>Taqwiyat al-Mirqāt</em></p>
+</footer>
+
+</div><!-- /main -->
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ── Reading progress bar
+  window.addEventListener('scroll', () => {
+    const d = document.documentElement;
+    const pct = window.scrollY / (d.scrollHeight - window.innerHeight) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('back-top').classList.toggle('visible', window.scrollY > 300);
+  });
+
+  // ── Back to top
+  document.getElementById('back-top').addEventListener('click', () =>
+    window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // ── Mobile sidebar
+  const menuBtn = document.getElementById('menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+  menuBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
+  document.addEventListener('click', e => {
+    if (!sidebar.contains(e.target) && e.target !== menuBtn) sidebar.classList.remove('open');
+  });
+
+  // ── Active nav on scroll
+  const sections = document.querySelectorAll('section[id], header[id]');
+  const navLinks = document.querySelectorAll('#sidebar nav a');
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector('#sidebar nav a[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => navObserver.observe(s));
+
+  // ── Section collapse / expand
+  document.querySelectorAll('.section-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = document.getElementById(btn.getAttribute('data-target'));
+      if (!body) return;
+      const collapsed = body.classList.toggle('hidden');
+      btn.classList.toggle('collapsed', collapsed);
+      btn.setAttribute('aria-expanded', String(!collapsed));
+      btn.textContent = collapsed ? '▶' : '▼';
+    });
+  });
+
+  // ── Study progress tracker
+  const SKEY = 'mirqat-studied-v2';
+  const checks = document.querySelectorAll('.section-check');
+
+  function updateProgress() {
+    const done = [...checks].filter(c => c.checked).length;
+    const total = checks.length;
+    document.getElementById('prog-fill').style.width = (done / total * 100) + '%';
+    document.getElementById('prog-count').textContent = done + ' / ' + total + ' complete';
+  }
+
+  function saveProgress() {
+    const state = {};
+    checks.forEach(c => { state[c.dataset.section] = c.checked; });
+    try { localStorage.setItem(SKEY, JSON.stringify(state)); } catch(e) {}
+  }
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(SKEY) || '{}');
+    checks.forEach(c => { if (saved[c.dataset.section]) c.checked = true; });
+  } catch(e) {}
+
+  updateProgress();
+
+  checks.forEach(c => {
+    c.addEventListener('change', () => { saveProgress(); updateProgress(); });
+    c.addEventListener('click', e => e.stopPropagation());
+  });
+
+  // ── Search with text-node highlighting
+  const inp = document.getElementById('search-input');
+  let hlTimer;
+
+  function clearHL() {
+    document.querySelectorAll('.search-highlight').forEach(el =>
+      el.replaceWith(document.createTextNode(el.textContent)));
+  }
+
+  function doSearch(q) {
+    if (!q || q.length < 2) { clearHL(); return; }
+    const re = new RegExp(q.replace(/[.*+?^${}()|[\]\]/g, '\$&'), 'gi');
+    const walker = document.createTreeWalker(document.getElementById('main'), NodeFilter.SHOW_TEXT);
+    const nodes = []; let n;
+    while ((n = walker.nextNode())) {
+      if (!n.parentElement.closest('.search-highlight')) nodes.push(n);
+    }
+    let first = null;
+    nodes.forEach(node => {
+      if (!re.test(node.nodeValue)) return;
+      re.lastIndex = 0;
+      const frag = document.createDocumentFragment();
+      let last = 0, m;
+      while ((m = re.exec(node.nodeValue)) !== null) {
+        frag.appendChild(document.createTextNode(node.nodeValue.slice(last, m.index)));
+        const mark = document.createElement('mark');
+        mark.className = 'search-highlight';
+        mark.textContent = m[0];
+        frag.appendChild(mark);
+        if (!first) first = mark;
+        last = re.lastIndex;
+      }
+      frag.appendChild(document.createTextNode(node.nodeValue.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  inp.addEventListener('input', e => {
+    clearTimeout(hlTimer);
+    clearHL();
+    hlTimer = setTimeout(() => doSearch(e.target.value.trim()), 350);
+  });
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { inp.value = ''; clearHL(); }
+  });
+
+});
+</script>
+</body>
+</html>
